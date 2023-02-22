@@ -10,6 +10,7 @@ namespace BankStuffLibrary.Models
     {
         public string Number { get;  }
         public string Owner { get; set; }
+        public string? Notes { get; set; }
 
         #region BalanceComputation
         public decimal Balance
@@ -31,13 +32,14 @@ namespace BankStuffLibrary.Models
 
         private static int accountNumberSeed = 1234567890;
 
-        public BankCredentials(string name, decimal initialBalance)
+        public BankCredentials(string name, decimal initialBalance, string note)
         {
             Owner = name;
             //Balance= initialBalance;
-            MakeDeposit(initialBalance, DateTime.Now, "Initial balance");
+            MakeDeposit(initialBalance, DateTime.Now, note); //,"Initial balance");
             Number = accountNumberSeed.ToString();
             accountNumberSeed++;
+            Notes = note;
         }
 
         private List<Transaction> allTransactions = new List<Transaction>();
@@ -71,11 +73,12 @@ namespace BankStuffLibrary.Models
             var report = new System.Text.StringBuilder();
 
             decimal balance = 0;
-            report.AppendLine("Date\t\tAmount\tBalance\tNote");
+            report.AppendLine("Deposit Date\tDeposit Amount\tCurrent Balance In Account");
             foreach (var item in allTransactions)
             {
                 balance += item.Amount;
-                report.AppendLine($"{item.Date.ToShortDateString()}\t{item.Amount}\t{balance}\t{item.Notes}");
+                //report.AppendLine($"{item.Date.ToShortDateString()}\t{item.Amount}\t{balance}\t{item.Notes}");
+                report.AppendLine($"{item.Date.ToShortDateString()}\t{item.Amount}\t\t\t{balance}");
             }
 
             return report.ToString();
