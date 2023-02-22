@@ -61,7 +61,7 @@ namespace BankApp
 
                 if (File.Exists($"{model.Username}.txt"))
                 {
-                    Console.WriteLine("Haaaaaaaaa!");
+                    Console.WriteLine("Username already exists!");
                 }
                 else
                 {
@@ -74,6 +74,7 @@ namespace BankApp
                     sb.AppendLine($"PhoneNumber: {model.PhoneNumber}");
                     sb.AppendLine($"Age: {model.Age}");
                     sb.AppendLine($"Email: {model.Email}");
+                    sb.AppendLine($"TotalBalance: {model.TotalBalance}");
 
                     File.WriteAllText(path, sb.ToString());
 
@@ -97,6 +98,7 @@ namespace BankApp
         public required string Age { get; set; }
         public required string PhoneNumber { get; set; }
         public required string Password { get; set; }
+        public decimal TotalBalance { get; set; }
     }
 
     public class LoginModel

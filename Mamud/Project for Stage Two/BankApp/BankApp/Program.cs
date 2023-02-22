@@ -6,11 +6,11 @@ namespace BankApp
     {
         public static void Main()
         {
+            Console.WriteLine("Welcome to the DotNet Ninja Banking Software!");
+            Console.WriteLine("Enter the corresponding number!\n");
             do
             {
-                Console.WriteLine("Welcome to the DotNet Ninja Banking Software!");
-                Console.WriteLine("Enter the corresponding number!");
-
+                
                 Console.WriteLine("1.\tSignUp");
                 Console.WriteLine("2.\tLogin");
                 Console.WriteLine("3.\tExit");
@@ -108,7 +108,7 @@ namespace BankApp
 
                 if (result)
                 {
-                    IAuth ff = new Auth();
+                    IAuth auth = new Auth();
                     UserModel user = new UserModel
                     {
                         Age = age,
@@ -117,10 +117,17 @@ namespace BankApp
                         PhoneNumber = phonenumber,
                         Username = username
                     };
-                    ff.SignUp(user);
-
-                    Console.WriteLine("Sign up successful.");
-                    Console.WriteLine("Kindly Log into the app to carry out your transactions.");
+                    var isUserSignedUp = auth.SignUp(user);
+                    if (isUserSignedUp)
+                    {
+                        Console.WriteLine("Sign up successful.");
+                        Console.WriteLine("Kindly Log into the app to carry out your transactions.");
+                    }
+                    //else
+                    //{
+                    //    Console.WriteLine("Username already exists");
+                    //}
+                    
                 }
             }
             catch (Exception ex)
