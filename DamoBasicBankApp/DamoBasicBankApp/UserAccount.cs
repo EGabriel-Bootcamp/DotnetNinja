@@ -21,7 +21,7 @@ namespace DamoBasicBankApp
             public string lastname { get; set; }
             public string username { get; set; }
             public string email { get; set; }
-            public int age { get; set; }
+            public int? age { get; set; }
             public string phonenumber { get; set; }
             public string password { get; set; }
             public string balance { get; set; } = "0.00";
@@ -33,21 +33,94 @@ namespace DamoBasicBankApp
             custmodel customer = new custmodel();
             Console.WriteLine("Welcome,\n Kindly fill out the form details to create a bank account with us," +
                 "pls note that all details are compulsory" );
-            Console.WriteLine("Enter your firstname:");
-            customer.firstname = Console.ReadLine();
-            Console.WriteLine("Enter your lastname:");
-            customer.lastname = Console.ReadLine();
-            Console.WriteLine("Enter your username:");
-            customer.username = Console.ReadLine();
-            Console.WriteLine("Enter your email:");
-            customer.email = Console.ReadLine();
-            Console.WriteLine("Enter your Age:");
-            customer.age = int.Parse(Console.ReadLine());
-            Console.WriteLine("Enter your Phone Number:");
-            customer.phonenumber = Console.ReadLine();
-            Console.WriteLine("Enter your password:");
-            customer.password = Console.ReadLine();
+            while (string.IsNullOrEmpty(customer.firstname))
+            {
+                Console.WriteLine("Enter your firstname:");
+                customer.firstname = Console.ReadLine();
 
+                if (string.IsNullOrEmpty(customer.firstname))
+                {
+                    Console.WriteLine("customer firstname cannot be empty, pls enter at least a character");
+                }
+            }
+            while (string.IsNullOrEmpty(customer.lastname))
+            {
+                Console.WriteLine("Enter your lastname:");
+                customer.lastname = Console.ReadLine();
+
+                if (string.IsNullOrEmpty(customer.lastname))
+                {
+                    Console.WriteLine("customer lastname cannot be empty, pls enter at least a character");
+                }
+            }
+            while (string.IsNullOrEmpty(customer.username))
+            {
+                Console.WriteLine("Enter your username:");
+                customer.username = Console.ReadLine();
+
+                if (string.IsNullOrEmpty(customer.username))
+                {
+                    Console.WriteLine("customer username cannot be empty, pls enter at least a character");
+                }
+            }
+            while (string.IsNullOrEmpty(customer.email))
+            {
+                Console.WriteLine("Enter your email:");
+                customer.email = Console.ReadLine();
+
+                if (string.IsNullOrEmpty(customer.email))
+                {
+                    Console.WriteLine("customer email cannot be empty, pls enter at least a character");
+                }
+            }
+            Console.WriteLine("Enter your Age:");
+            while(customer.age is null)
+            {
+                try
+                {
+                    customer.age = int.Parse(Console.ReadLine());
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Age must be a positive integer");
+                    Console.WriteLine("Enter your Age:");
+                }
+                while (customer.age<=0)
+                {
+                    Console.WriteLine("Age must be greater than 0");
+                    try
+                    {
+                        customer.age = int.Parse(Console.ReadLine());
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("Age must be a positive integer");
+                        Console.WriteLine("Enter your Age:");
+                    }
+                }
+            }
+            
+            
+            while (string.IsNullOrEmpty(customer.phonenumber))
+            {
+                Console.WriteLine("Enter your Phone Number:");
+                customer.phonenumber = Console.ReadLine();
+
+                if (string.IsNullOrEmpty(customer.phonenumber))
+                {
+                    Console.WriteLine("customer Phone Number cannot be empty, pls enter at least a character");
+                }
+            }
+            while (string.IsNullOrEmpty(customer.password))
+            {
+                Console.WriteLine("Enter your Password:");
+                customer.password = Console.ReadLine();
+
+                if (string.IsNullOrEmpty(customer.password))
+                {
+                    Console.WriteLine("customer Password cannot be empty, pls enter at least a character");
+                }
+            }
             
             AccountArray = new string[10] { customer.firstname, customer.lastname, customer.username, customer.email, customer.age.ToString(), customer.phonenumber, customer.password,DateTime.Now.ToString(),"0.00", "Customer Account created with initail balance of 0.00" };
             string details = string.Join(',',AccountArray);
@@ -193,6 +266,19 @@ namespace DamoBasicBankApp
                     {                      
                        Console.WriteLine($"{customer[7]}        {customer[9]}");
                     }
+                }
+            }
+        }
+        public void ValidateParameter(custmodel customer, string parameter)
+        {
+            while (string.IsNullOrEmpty(parameter))
+            {
+                Console.WriteLine($"Enter your {0}:",parameter);
+                customer.firstname = Console.ReadLine();
+
+                if (string.IsNullOrEmpty(customer.firstname))
+                {
+                    Console.WriteLine($"customer {0} cannot be empty, pls enter at least a character", parameter);
                 }
             }
         }
