@@ -15,6 +15,7 @@ namespace BankApp
                 Console.WriteLine("2.\tLogin");
                 Console.WriteLine("3.\tExit");
 
+                Console.WriteLine();
                 Console.Write("Enter your Choice: ");
 
                 ObjectResult objectResult = new ObjectResult();
@@ -35,12 +36,13 @@ namespace BankApp
                 {
                     if (parsedValue == 1)
                     {
-                        Console.WriteLine("You're signing up!");
+                        Console.WriteLine("You're signing up...");
                         SignUpForm();
                     }
                     else if (parsedValue == 2)
                     {
-                        Console.WriteLine("You're logging in!");
+                        Console.WriteLine();
+                        Console.WriteLine("You're logging in...");
 
                         int count = 0;
                         do
@@ -70,10 +72,10 @@ namespace BankApp
                 }
 
                 int doAction = 0;
-                var bankDetails = new Bank(objectResult.UserName);
 
                 if (objectResult.Success)
                 {
+                    var bankDetails = new Bank(objectResult.UserName.ToLower());
                     do
                     {
                         Action(bankDetails, out doAction);
@@ -115,7 +117,7 @@ namespace BankApp
                         Email = email,
                         Password = password,
                         PhoneNumber = phonenumber,
-                        Username = username
+                        Username = username.ToLower()
                     };
                     var isUserSignedUp = auth.SignUp(user);
                     if (isUserSignedUp)
@@ -123,11 +125,12 @@ namespace BankApp
                         Console.WriteLine("Sign up successful.");
                         Console.WriteLine("Kindly Log into the app to carry out your transactions.");
                     }
-                    //else
-                    //{
-                    //    Console.WriteLine("Username already exists");
-                    //}
-                    
+                    else
+                    {
+                        Console.WriteLine("Try again...");
+                        Console.WriteLine();
+                    }
+
                 }
             }
             catch (Exception ex)
@@ -190,7 +193,7 @@ namespace BankApp
                     LoginModel user = new LoginModel
                     {
                         Password = password,
-                        Username = username
+                        Username = username.ToLower()
                     };
                     var res = ff.Login(user);
                     if (res)
@@ -232,12 +235,13 @@ namespace BankApp
 
         static void Action(Bank bankDetails, out int doAction)
         {
-
+            Console.WriteLine();
             Console.WriteLine("1.\tDeposit");
             Console.WriteLine("2.\tBalance");
             Console.WriteLine("3.\tWithdrawal");
             Console.WriteLine("4.\tTransaction History");
             Console.WriteLine("5.\tExit");
+            Console.WriteLine();
 
             Console.Write("Enter your Choice: ");
 
@@ -258,11 +262,12 @@ namespace BankApp
             {
                 if (parsedValue == 1)
                 {
-                    Console.WriteLine("Deposting...");
 
                     Console.Write("Amount to deposit: ");
 
                     var depositAmount = Console.ReadLine();
+
+                    Console.WriteLine("Deposting...");
 
                     int depositAmountValue = 0;
 
