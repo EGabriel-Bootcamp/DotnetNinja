@@ -88,6 +88,7 @@ namespace DamoBasicBankApp
                 while (customer.age<=0)
                 {
                     Console.WriteLine("Age must be greater than 0");
+                    Console.WriteLine("Enter your Age:");
                     try
                     {
                         customer.age = int.Parse(Console.ReadLine());
